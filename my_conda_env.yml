@@ -1,0 +1,10 @@
+name: my_python_env
+channels:
+  - knime
+  - conda-forge
+dependencies:
+  - python=3.9
+  - knime-extension>=4.7
+  - knime-python-base>=4.7
+  - rdkit=2023.03.1
+  - chembl_structure_pipeline
