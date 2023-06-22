@@ -7,18 +7,25 @@ from chembl_structure_pipeline import standardize_mol
 from chembl_structure_pipeline import get_parent_mol
 
 LOGGER = logging.getLogger(__name__)
-#molhash = partial(rdMolHash,MolHash(rdMolHash.HashFunction.HeAtomTautomer))
 
-@knext.node(name="chembl structure pipeline", node_type=knext.NodeType.MANIPULATOR, icon_path="demo.png", category="/")
+chemoinfo_nodes = knext.category(
+        path="/community",
+        level_id="chemoinfo_nodes",
+        name="ChemoInfo Nodes",
+        description="Chembl Nodes for KNIME",
+        icon="icon.png",
+)
+
+@knext.node(name="chembl structure pipeline", node_type=knext.NodeType.MANIPULATOR, icon_path="icon.png", category=chemoinfo_nodes)
 @knext.input_table(name="SMILES column", description="read smiles")
 @knext.output_table(name="Output Data", description="rdkit mol which is standarized with chembl structure pipeline")
 class TemplateNode:
-    """Short one-line description of the node.
+    """This is sample node which is implemented with chembl structure pipeline.
+    
     This is sample node which is implemented with chembl structure pipeline.
     input data should be SMILES.
     """
 
-    # simple code
     def std_mol(self, smiles):
         mol = Chem.MolFromSmiles(smiles)
         if mol == None:
@@ -37,8 +44,6 @@ class TemplateNode:
    
 
     def configure(self, configure_context, input_schema_1):   
-            
-        #return input_schema_1.append(knext.Column(Chem.rdchem.Mol, "STD_ROMol"))
         return input_schema_1.append(knext.Column(Chem.rdchem.Mol, "STD_ROMol")).append(knext.Column(knext.string(), 'MolHash'))
 
  
